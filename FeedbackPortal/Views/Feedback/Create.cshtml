@@ -1,0 +1,54 @@
+﻿@model FeedbackPortal.Models.Feedback
+@{
+    ViewData["Title"] = "Give Feedback";
+}
+
+<h2>Give Feedback</h2>
+
+@using (Html.BeginForm("Create", "Feedback", FormMethod.Post))
+{
+    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Name, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Email, new { @class = "form-label" })
+        @Html.TextBoxFor(m => m.Email, new { @class = "form-control", type = "email" })
+        @Html.ValidationMessageFor(m => m.Email, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Category, new { @class = "form-label" })
+        @Html.DropDownListFor(m => m.Category,
+            new SelectList(new[] { "Course", "Faculty", "Facilities", "Other" }),
+            "-- Select Category --",
+            new { @class = "form-select" })
+        @Html.ValidationMessageFor(m => m.Category, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Rating, new { @class = "form-label" })
+        @Html.DropDownListFor(m => m.Rating,
+            new SelectList(Enumerable.Range(1, 5)),
+            "-- Select Rating (1-5) --",
+            new { @class = "form-select" })
+        @Html.ValidationMessageFor(m => m.Rating, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="mb-3">
+        @Html.LabelFor(m => m.Comments, new { @class = "form-label" })
+        @Html.TextAreaFor(m => m.Comments, 4, 40, new { @class = "form-control" })
+        @Html.ValidationMessageFor(m => m.Comments, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+    @Html.ActionLink("Cancel", "Index", "Feedback", null, new { @class = "btn btn-secondary" })
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -1,0 +1,31 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Feedback Portal</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header class="navbar navbar-dark bg-dark px-3">
+        <span class="navbar-brand">Feedback Portal</span>
+        <nav>
+            @Html.ActionLink("All Feedback", "Index", "Feedback", null, new { @class = "text-white me-3" })
+            @Html.ActionLink("Give Feedback", "Create", "Feedback", null, new { @class = "text-white" })
+        </nav>
+    </header>
+
+    <main class="container py-4">
+        @RenderBody()
+    </main>
+
+    <footer class="text-center text-muted py-3 border-top">
+        &copy; @DateTime.Now.Year Feedback Portal
+    </footer>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

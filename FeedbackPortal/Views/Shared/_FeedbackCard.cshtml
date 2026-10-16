@@ -1,0 +1,20 @@
+﻿@model FeedbackPortal.Models.Feedback
+
+<div class="card mb-3">
+    <div class="card-body">
+        <div class="d-flex justify-content-between">
+            <h5 class="card-title">@Model.Name <small class="text-muted">(@Model.Category)</small></h5>
+            <span class="text-warning">@(new string('★', Model.Rating))@(new string('☆', 5 - Model.Rating))</span>
+        </div>
+        <p class="card-text">@Model.Comments</p>
+        <small class="text-muted">@Model.Email &middot; @Model.SubmittedOn.ToString("dd MMM yyyy, hh:mm tt")</small>
+
+        @using (Html.BeginForm("Delete", "Feedback", new { id = Model.Id }, FormMethod.Post))
+        {
+            <button type="submit" class="btn btn-sm btn-outline-danger mt-2"
+                    onclick="return confirm('Delete this feedback?');">
+                Delete
+            </button>
+        }
+    </div>
+</div>
