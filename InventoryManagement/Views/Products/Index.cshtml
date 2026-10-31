@@ -1,0 +1,42 @@
+﻿@model List<InventoryManagement.Models.Product>
+@{
+    ViewData["Title"] = "Inventory";
+}
+
+<h2>Inventory Management</h2>
+
+@if (TempData["Message"] != null)
+{
+    <div class="alert alert-success">@TempData["Message"]</div>
+}
+
+<p><a asp-action="Create" class="btn btn-primary">+ Add Product</a></p>
+
+<table class="table table-bordered table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Product</th>
+            <th>Category</th>
+            <th>Quantity</th>
+            <th>Unit Price</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr class="@(p.Quantity < 10 ? "table-warning" : "")">
+                <td>@p.ProductId</td>
+                <td>@p.ProductName</td>
+                <td>@p.Category</td>
+                <td>@p.Quantity @(p.Quantity < 10 ? "(Low stock)" : "")</td>
+                <td>₹@p.UnitPrice.ToString("N2")</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@p.ProductId" class="btn btn-sm btn-secondary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@p.ProductId" class="btn btn-sm btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
